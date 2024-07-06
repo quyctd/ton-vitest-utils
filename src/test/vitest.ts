@@ -5,22 +5,12 @@ import type { CompareResult } from './interface';
 import { compareAddressForTest, compareCellForTest, compareSliceForTest } from './comparisons';
 import { FlatTransactionComparable } from './transaction';
 
-interface MatcherResult {
-  pass: boolean;
-  message: () => string;
-  actual?: unknown;
-  expected?: unknown;
-}
-
-const wrapComparer = <T>(comparer: (subject: any, cmp: T) => CompareResult) => {
-  return function (got: any, want: T): MatcherResult {
-    const result = comparer(got, want);
-    return {
-      pass: result.pass,
-      message: () => (result.pass ? result.negMessage() : result.posMessage()),
-    };
+function wrapComparer<T>(comparer: (subject: any, cmp: T) => CompareResult) {
+  return function (this: any, cmp: T) {
+    const result = comparer(this._obj, cmp);
+    this.assert(result.pass, result.posMessage(), result.negMessage());
   };
-};
+}
 
 const toHaveTransaction = wrapComparer(compareTransactionForTest);
 const toEqualCell = wrapComparer(compareCellForTest);
@@ -28,18 +18,19 @@ const toEqualAddress = wrapComparer(compareAddressForTest);
 const toEqualSlice = wrapComparer(compareSliceForTest);
 
 try {
-  const vitest = require('vitest');
+  const chai = require('chai');
 
-  if (vitest)
-    vitest.expect.extend({
-      toHaveTransaction,
-      transaction: toHaveTransaction,
-      toEqualCell,
-      equalCell: toEqualCell,
-      toEqualAddress,
-      equalAddress: toEqualAddress,
-      toEqualSlice,
-      equalSlice: toEqualSlice,
+  if (chai)
+    chai.use((chai: Chai.ChaiStatic) => {
+      const Assertion = chai.Assertion;
+      Assertion.addMethod('toHaveTransaction', toHaveTransaction);
+      Assertion.addMethod('toEqualCell', toEqualCell);
+      Assertion.addMethod('toEqualAddress', toEqualAddress);
+      Assertion.addMethod('toEqualSlice', toEqualSlice);
+      Assertion.addMethod('transaction', toHaveTransaction);
+      Assertion.addMethod('equalCell', toEqualCell);
+      Assertion.addMethod('equalAddress', toEqualAddress);
+      Assertion.addMethod('equalSlice', toEqualSlice);
     });
 } catch (e) {}
 
