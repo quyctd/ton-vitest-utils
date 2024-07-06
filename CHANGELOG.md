@@ -55,3 +55,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `toEqualCell`/`equalCell`, `toEqualAddress`/`equalAddress`, `toEqualSlice`/`equalSlice` (jest/chai) matchers
 - Added `on` field (alias for `to`) on `FlatTransaction`
 - Added `op` field on `FlatTransaction`
+
+## [0.0.1] - 2024-06-07
+
+### Added
+
+- Migrate `jest` and `chai` matchers to `vitest`
