@@ -1,6 +1,9 @@
+import { Address, Cell, Slice } from '@ton/core';
+
 import { compareTransactionForTest } from './transaction';
 import type { CompareResult } from './interface';
 import { compareAddressForTest, compareCellForTest, compareSliceForTest } from './comparisons';
+import { FlatTransactionComparable } from './transaction';
 
 interface MatcherResult {
   pass: boolean;
@@ -41,19 +44,16 @@ try {
 } catch (e) {}
 
 declare global {
-  export namespace vitest {
-    interface CustomMatchers<R = unknown> {
-      toHaveTransaction: () => R;
-      transaction: () => R;
-      toEqualCell: () => R;
-      equalCell: () => R;
-      toEqualAddress: () => R;
-      equalAddress: () => R;
-      toEqualSlice: () => R;
-      equalSlice: () => R;
+  export namespace Chai {
+    interface Assertion {
+      toHaveTransaction: (cmp: FlatTransactionComparable) => void;
+      toEqualCell: (cell: Cell) => void;
+      toEqualAddress: (address: Address) => void;
+      toEqualSlice: (slice: Slice) => void;
+      transaction(cmp: FlatTransactionComparable): void;
+      equalCell(cell: Cell): void;
+      equalAddress(address: Address): void;
+      equalSlice(slice: Slice): void;
     }
-
-    type Assertion<T = any> = CustomMatchers<T>;
-    interface AsymmetricMatchersContaining extends CustomMatchers {}
   }
 }

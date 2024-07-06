@@ -1,6 +1,6 @@
 {
   "name": "ton-vitest-utils",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "dist/index.js",
   "license": "MIT",
   "description": "Utilities for writing tests using vitest for smart contract systems in TON",
