@@ -1,22 +1,41 @@
-# test-utils
+<p align="center">
+  <img src="public/ton-vitest.svg" alt="TON-vitest-utils" width="200" />
+</p>
 
-This package contains useful testing utilities, such as unit test matchers (for jest and chai) and other useful functions, such as `randomAddress`.
+<h1 align="center">
+  ⚡️ TON Vitest Utils ⚡️
+</h1>
+
+This package is a fork of [test-utils](https://github.com/ton-community/test-utils) with support for [Vitest](https://vitest.dev/).
+It contains all the same functionality as the original package, such as `randomAddress`. But, a lot faster ⚡️
 
 ## Installation
 
 ```
-yarn add @ton/test-utils -D
+yarn add ton-vitest-utils -D
 ```
+
 or
+
 ```
-npm i --save-dev @ton/test-utils
+npm i --save-dev ton-vitest-utils
 ```
 
 ## Usage
 
-To use the test matchers, just install either jest or chai and import this package like so:
+To use the test matchers, just install [Vitest](https://vitest.dev/guide/) and import this package like so:
+
 ```typescript
-import "@ton/test-utils";
+import 'ton-vitest-utils';
+```
+
+### ⚠️ Compile Note
+
+To compile contracts in your tests, use our `compile` function instead of `blueprint`'s. It is a wrapper of `blueprint`'s `compile` to work with `vitest`.
+
+```diff
+- import { compile } from '@ton/blueprint';
++ import { compile } from 'ton-vitest-utils';
 ```
 
 ### Transaction matcher notice
