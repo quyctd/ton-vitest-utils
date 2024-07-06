@@ -1,16 +1,16 @@
 {
-  "name": "@ton/test-utils",
-  "version": "0.4.2",
+  "name": "ton-vitest-utils",
+  "version": "0.0.1",
   "main": "dist/index.js",
   "license": "MIT",
-  "description": "Utilities for writing tests for smart contract systems in TON",
+  "description": "Utilities for writing tests using vitest for smart contract systems in TON",
   "author": "TonTech",
   "files": [
     "dist/**/*"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ton-org/test-utils"
+    "url": "git+https://github.com/quyctd/ton-vitest-utils"
   },
   "devDependencies": {
     "@ton/core": "^0.49.2",
@@ -30,7 +30,7 @@
     "vite": "^5.3.3"
   },
   "scripts": {
-    "build": "rm -rf dist && vitest && tsc"
+    "build": "rm -rf dist && vitest run && tsc"
   },
   "packageManager": "yarn@3.6.1"
 }
