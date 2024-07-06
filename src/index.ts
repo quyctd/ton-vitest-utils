@@ -11,5 +11,5 @@ export {
 import './test/vitest';
 
 export { randomAddress } from './utils/randomAddress';
-
+export { compile } from './utils/compile';
 export { executeTill, executeFrom } from './utils/stepByStep';
