@@ -10,7 +10,6 @@ export default defineConfig({
     lib: {
       entry: 'src/index.ts',
       name: 'TonTestUtils',
-      formats: ['es'],
       fileName: 'ton-test-utils',
     },
   },
