@@ -23,10 +23,38 @@ npm i --save-dev ton-vitest-utils
 
 ## Usage
 
-To use the test matchers, just install [Vitest](https://vitest.dev/guide/) and import this package like so:
+Import the matchers from `ton-vitest-utils` once (perferably in your [tests setup file](https://vitest.dev/config/#setupfiles)), then pass them to Vitest's `expect.extend` method:
 
 ```typescript
-import 'ton-vitest-utils';
+// tests/vitest.setup.ts
+import { tonTestUtilsMatchers } from 'ton-vitest-utils';
+import { expect } from 'vitest';
+
+expect.extend(tonTestUtilsMatchers);
+```
+
+In `vitest.config.ts` or `vite.config.ts`, add the setup file to the `setupFiles` array:
+
+```typescript
+// vitest.config.ts
+export default defineConfig({
+  test: {
+    // ...
+    setupFiles: ['tests/vitest.setup.ts'],
+  },
+});
+```
+
+## With TypeScript
+
+If you're using TypeScript, import our type definitions into `tsconfig.json` to get autocomplete and type checking:
+
+```json
+{
+  "compilerOptions": {
+    "types": ["ton-vitest-utils"]
+  }
+}
 ```
 
 ### ⚠️ Compile Note

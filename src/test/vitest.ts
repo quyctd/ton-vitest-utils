@@ -1,50 +1,49 @@
 import { Address, Cell, Slice } from '@ton/core';
-
 import { compareTransactionForTest } from './transaction';
 import type { CompareResult } from './interface';
 import { compareAddressForTest, compareCellForTest, compareSliceForTest } from './comparisons';
 import { FlatTransactionComparable } from './transaction';
 
-function wrapComparer<T>(comparer: (subject: any, cmp: T) => CompareResult) {
-  return function (this: any, cmp: T) {
-    const result = comparer(this._obj, cmp);
-    this.assert(result.pass, result.posMessage(), result.negMessage());
-  };
+interface MatcherResult {
+  pass: boolean;
+  message: () => string;
+  actual?: unknown;
+  expected?: unknown;
 }
+
+const wrapComparer = <T>(comparer: (subject: any, cmp: T) => CompareResult) => {
+  return function (got: any, want: T): MatcherResult {
+    const result = comparer(got, want);
+    return {
+      pass: result.pass,
+      message: () => (result.pass ? result.negMessage() : result.posMessage()),
+    };
+  };
+};
 
 const toHaveTransaction = wrapComparer(compareTransactionForTest);
 const toEqualCell = wrapComparer(compareCellForTest);
 const toEqualAddress = wrapComparer(compareAddressForTest);
 const toEqualSlice = wrapComparer(compareSliceForTest);
 
-try {
-  const chai = require('chai');
+export const tonTestUtilsMatchers = {
+  toHaveTransaction,
+  transaction: toHaveTransaction,
+  toEqualCell,
+  equalCell: toEqualCell,
+  toEqualAddress,
+  equalAddress: toEqualAddress,
+  toEqualSlice,
+  equalSlice: toEqualSlice,
+};
 
-  if (chai)
-    chai.use((chai: Chai.ChaiStatic) => {
-      const Assertion = chai.Assertion;
-      Assertion.addMethod('toHaveTransaction', toHaveTransaction);
-      Assertion.addMethod('toEqualCell', toEqualCell);
-      Assertion.addMethod('toEqualAddress', toEqualAddress);
-      Assertion.addMethod('toEqualSlice', toEqualSlice);
-      Assertion.addMethod('transaction', toHaveTransaction);
-      Assertion.addMethod('equalCell', toEqualCell);
-      Assertion.addMethod('equalAddress', toEqualAddress);
-      Assertion.addMethod('equalSlice', toEqualSlice);
-    });
-} catch (e) {}
-
-declare global {
-  export namespace Chai {
-    interface Assertion {
-      toHaveTransaction: (cmp: FlatTransactionComparable) => void;
-      toEqualCell: (cell: Cell) => void;
-      toEqualAddress: (address: Address) => void;
-      toEqualSlice: (slice: Slice) => void;
-      transaction(cmp: FlatTransactionComparable): void;
-      equalCell(cell: Cell): void;
-      equalAddress(address: Address): void;
-      equalSlice(slice: Slice): void;
-    }
-  }
+export interface TonTestUtilsMatchers<R = unknown> {
+  toHaveTransaction: (cmp: FlatTransactionComparable) => R;
+  toEqualCell: (cell: Cell) => R;
+  toEqualAddress: (address: Address) => R;
+  toEqualSlice: (slice: Slice) => R;
+  transaction: (cmp: FlatTransactionComparable) => R;
+  equalCell: (cell: Cell) => R;
+  equalAddress: (address: Address) => R;
+  equalSlice: (slice: Slice) => R;
 }

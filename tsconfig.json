@@ -9,6 +9,6 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*", "vitest.d.ts"],
+  "include": ["src/**/*"],
   "exclude": ["**/*.spec.ts"]
 }
