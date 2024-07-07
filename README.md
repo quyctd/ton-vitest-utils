@@ -45,6 +45,14 @@ export default defineConfig({
 });
 ```
 
+Now all the matchers are available to use in your tests without any additional imports:
+
+```typescript
+test('should pass', () => {
+  expect(1).toHaveTransaction(1);
+});
+```
+
 ## With TypeScript
 
 If you're using TypeScript, import our type definitions into `tsconfig.json` to get autocomplete and type checking:
