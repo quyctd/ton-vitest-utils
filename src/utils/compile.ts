@@ -7,11 +7,11 @@ import os from 'os';
 
 export const COMPILE_END = '.compile.ts';
 const WRAPPERS_DIR = path.join(process.cwd(), 'wrappers');
-const CACHE_DIR = path.join(os.tmpdir(), 'ton-vitest-utils-cache');
+const CACHE_DIR = path.join(os.homedir(), '.cache', 'ton-vitest-utils');
 
 // Ensure cache directory exists
 if (!fs.existsSync(CACHE_DIR)) {
-  fs.mkdirSync(CACHE_DIR);
+  fs.mkdirSync(CACHE_DIR, { recursive: true });
 }
 
 const getFileHash = (filePath: string) => {
