@@ -11,7 +11,7 @@ It contains all the same functionality as the original package, such as `randomA
 
 ## Features
 
-- ⚡️ Native [Vite](https://vitest.dev/) & [Vitest](https://vitest.dev/) support
+- ⚡️ Native [Vite](https://vitejs.dev/) & [Vitest](https://vitest.dev/) support
 - ✨ Contract compilation caching
 - 📦 Smaller package size (🙅‍♂️ jest or chai)
 
