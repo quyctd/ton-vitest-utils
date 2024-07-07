@@ -7,7 +7,7 @@ export {
   findTransactionRequired,
   filterTransactions,
 } from './test/transaction';
-export { tonTestUtilsMatchers } from './test/vitest';
+export { tonTestUtilsMatchers, setUpTonTestUtils } from './test/vitest';
 export { randomAddress } from './utils/randomAddress';
 export { compile } from './utils/compile';
 export { executeTill, executeFrom } from './utils/stepByStep';

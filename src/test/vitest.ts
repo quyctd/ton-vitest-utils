@@ -3,6 +3,7 @@ import { compareTransactionForTest } from './transaction';
 import type { CompareResult } from './interface';
 import { compareAddressForTest, compareCellForTest, compareSliceForTest } from './comparisons';
 import { FlatTransactionComparable } from './transaction';
+import { ExpectStatic, afterAll as vitestAfterAll } from 'vitest';
 
 interface MatcherResult {
   pass: boolean;
@@ -25,6 +26,10 @@ const toHaveTransaction = wrapComparer(compareTransactionForTest);
 const toEqualCell = wrapComparer(compareCellForTest);
 const toEqualAddress = wrapComparer(compareAddressForTest);
 const toEqualSlice = wrapComparer(compareSliceForTest);
+
+export const setUpTonTestUtils = (expect: ExpectStatic) => {
+  expect.extend(tonTestUtilsMatchers);
+};
 
 export const tonTestUtilsMatchers = {
   toHaveTransaction,

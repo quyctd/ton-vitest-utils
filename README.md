@@ -9,6 +9,12 @@
 This package is a fork of [test-utils](https://github.com/ton-community/test-utils) with support for [Vitest](https://vitest.dev/).
 It contains all the same functionality as the original package, such as `randomAddress`. But, a lot faster ⚡️
 
+## Features
+
+- ⚡️ Native [Vite](https://vitest.dev/) & [Vitest](https://vitest.dev/) support
+- ✨ Contract compilation caching
+- 📦 Smaller package size (🙅‍♂️ jest or chai)
+
 ## Installation
 
 ```
@@ -23,14 +29,14 @@ npm i --save-dev ton-vitest-utils
 
 ## Usage
 
-Import the matchers from `ton-vitest-utils` once (perferably in your [tests setup file](https://vitest.dev/config/#setupfiles)), then pass them to Vitest's `expect.extend` method:
+Import the setup function from `ton-vitest-utils` (in your [tests setup file](https://vitest.dev/config/#setupfiles)), then pass Vitest's `expect` method into that function to init the matchers:
 
 ```typescript
 // tests/vitest.setup.ts
-import { tonTestUtilsMatchers } from 'ton-vitest-utils';
+import { setUpTonTestUtils } from 'ton-vitest-utils';
 import { expect } from 'vitest';
 
-expect.extend(tonTestUtilsMatchers);
+setUpTonTestUtils(expect);
 ```
 
 In `vitest.config.ts` or `vite.config.ts`, add the setup file to the `setupFiles` array:
@@ -45,11 +51,12 @@ export default defineConfig({
 });
 ```
 
-Now all the matchers are available to use in your tests without any additional imports:
+Now all the matchers are available to use in your tests:
 
 ```typescript
 test('should pass', () => {
   expect(1).toHaveTransaction(1);
+  expect(1).toEqualAddress(1);
 });
 ```
 
@@ -67,7 +74,9 @@ If you're using TypeScript, import our type definitions into `tsconfig.json` to 
 
 ### ⚠️ Compile Note
 
-To compile contracts in your tests, use our `compile` function instead of `blueprint`'s. It is a wrapper of `blueprint`'s `compile` to work with `vitest`.
+To compile contracts in your tests, use our `compile` function instead of `blueprint`'s.
+
+Our `compile` function is a wrapper around `blueprint`'s `compile` that is optimized for `vitest` and includes some performance enhancements.
 
 ```diff
 - import { compile } from '@ton/blueprint';
