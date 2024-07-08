@@ -61,9 +61,10 @@ export const compile = async (name: string, options?: CompileOpts) => {
     fs.existsSync(compiledCtsPath) && fs.unlinkSync(compiledCtsPath);
 
     return compiled;
-  } catch {
+  } catch (e) {
     fs.existsSync(esmPath) && fs.unlinkSync(esmPath);
     fs.existsSync(compiledCjsPath) && fs.unlinkSync(compiledCjsPath);
     fs.existsSync(compiledCtsPath) && fs.unlinkSync(compiledCtsPath);
+    throw e;
   }
 };
