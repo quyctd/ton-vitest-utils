@@ -11,9 +11,12 @@ It contains all the same functionality as the original package, such as `randomA
 
 ## Features
 
-- ⚡️ Native [Vite](https://vitejs.dev/) & [Vitest](https://vitest.dev/) support
-- ✨ Contract compilation caching
-- 📦 Smaller package size (🙅‍♂️ jest or chai)
+- ⚡️ **Performance**: Native [Vite](https://vitejs.dev/) & [Vitest](https://vitest.dev/) support
+- 🛠️ **Lightning Compilation**: Extended caching layer on top of blueprint compilation for better performance
+- 💪 **Multithread**: Even faster compilation with multithreading support by default
+- 📦 **Small Bundle Size**: No jest or chai dependencies, only Vitest
+- 🧪 **Test**: Type definitions for TypeScript
+- 🚀 **Easy**: Simple setup, just follow the [usage](#usage) instructions
 
 ## Installation
 
@@ -86,6 +89,18 @@ Our `compile` function is a wrapper around `blueprint`'s `compile` that is optim
 ### Transaction matcher notice
 
 The transaction matcher (`.toHaveTransaction`) can only perform matching on transactions with descriptions of type `generic`. When matching an array of transactions, all transactions of other types will be filtered out. When matching a single transaction of non-generic type, an exception will be thrown.
+
+# Benchmarks
+
+Setup: MacBook Pro (16-inch, M2 Pro, 2023). Perform on 192 test cases of our internal contracts.
+
+| Package                     | Time  |
+| --------------------------- | ----- |
+| @ton/test-utils             | 93s   |
+| ton-vitest-utils (no cache) | 20.8s |
+| ton-vitest-utils (caching)  | 7.62s |
+
+Overall, this package can perform 3-10x faster than the `@ton/test-utils` package.
 
 ## License
 
