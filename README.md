@@ -92,15 +92,19 @@ The transaction matcher (`.toHaveTransaction`) can only perform matching on tran
 
 # Benchmarks
 
-Setup: MacBook Pro (16-inch, M2 Pro, 2023). Perform on 192 test cases of our internal contracts.
+Setup: MacBook Pro (16-inch, M2 Pro, 2023).
 
-| Package                     | Time      |
-| --------------------------- | --------- |
-| @ton/test-utils             | 93s       |
-| ton-vitest-utils (no cache) | **20.8s** |
-| ton-vitest-utils (caching)  | **7.62s** |
+Performed on various contracts to compare the performance of `@ton/test-utils` and `ton-vitest-utils`.
 
-Overall, this package can perform **3-10x faster** than the `@ton/test-utils` package.
+| Contract                                                                                     | @ton/test-utils | _ton-vitest-utils_ |
+| -------------------------------------------------------------------------------------------- | --------------- | ------------------ |
+| [Multisig Contract v2](https://github.com/ton-blockchain/multisig-contract-v2)               | 29.071s         | **8.36s**          |
+| [Highload Wallet Contract v3](https://github.com/ton-blockchain/highload-wallet-contract-v3) | 9.83s           | **5.30s**          |
+| [Tonkeeper Wallet v5 Contract](https://github.com/tonkeeper/w5)                              | 14.06s          | **6.55s**          |
+| [Hipo Finance contract](https://github.com/HipoFinance/contract)                             | 53.808s         | **34.80s**         |
+| [Ton Raffles - NFT Launchpad contract](https://github.com/HipoFinance/contract)              | 44.663s         | **28.89s**         |
+
+Overall, this package can perform **2-5x faster** than the `@ton/test-utils` package.
 
 ## License
 
