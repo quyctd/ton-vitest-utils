@@ -14,19 +14,19 @@ It contains all the same functionality as the original package, such as `randomA
 - ⚡️ **Performance**: Native [Vite](https://vitejs.dev/) & [Vitest](https://vitest.dev/) support
 - 🛠️ **Lightning Compilation**: Extended caching layer on top of blueprint compilation for better performance
 - 📦 **Small Bundle Size**: No jest or chai dependencies, only Vitest
-- 🧪 **Test**: Type definitions for TypeScript
+- 🧪 **Type Safe**: Type definitions for TypeScript
 - 🚀 **Easy**: Simple setup, just follow the [usage](#usage) instructions
 
 ## Installation
 
 ```
-yarn add ton-vitest-utils -D
+yarn add vitest ton-vitest-utils -D
 ```
 
 or
 
 ```
-npm i --save-dev ton-vitest-utils
+npm i --save-dev vitest ton-vitest-utils
 ```
 
 ## Usage
@@ -48,6 +48,8 @@ In `vitest.config.ts` or `vite.config.ts`, add the setup file to the `setupFiles
 export default defineConfig({
   test: {
     // ...
+    environment: 'node',
+    globals: true,
     setupFiles: ['tests/vitest.setup.ts'],
   },
 });
@@ -69,7 +71,7 @@ If you're using TypeScript, import our type definitions into `tsconfig.json` to 
 ```json
 {
   "compilerOptions": {
-    "types": ["ton-vitest-utils"]
+    "types": ["vitest/globals", "ton-vitest-utils"]
   }
 }
 ```
@@ -78,7 +80,7 @@ If you're using TypeScript, import our type definitions into `tsconfig.json` to 
 
 To compile contracts in your tests, use our `compile` function instead of `blueprint`'s.
 
-Our `compile` function is a wrapper around `blueprint`'s `compile` that is optimized for `vitest` and includes some performance enhancements.
+Our `compile` function is a wrapper around `blueprint`'s `compile` that is make it compatible with `vitest` and includes some performance enhancements.
 
 ```diff
 - import { compile } from '@ton/blueprint';
