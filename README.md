@@ -100,7 +100,7 @@ Setup: MacBook Pro (16-inch, M2 Pro, 2023). Perform on 192 test cases of our int
 | ton-vitest-utils (no cache) | **20.8s** |
 | ton-vitest-utils (caching)  | **7.62s** |
 
-Overall, this package can perform 3-10x faster than the `@ton/test-utils` package.
+Overall, this package can perform **3-10x faster** than the `@ton/test-utils` package.
 
 ## License
 
