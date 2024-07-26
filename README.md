@@ -13,7 +13,6 @@ It contains all the same functionality as the original package, such as `randomA
 
 - ⚡️ **Performance**: Native [Vite](https://vitejs.dev/) & [Vitest](https://vitest.dev/) support
 - 🛠️ **Lightning Compilation**: Extended caching layer on top of blueprint compilation for better performance
-- 💪 **Multithread**: Even faster compilation with multithreading support by default
 - 📦 **Small Bundle Size**: No jest or chai dependencies, only Vitest
 - 🧪 **Test**: Type definitions for TypeScript
 - 🚀 **Easy**: Simple setup, just follow the [usage](#usage) instructions
